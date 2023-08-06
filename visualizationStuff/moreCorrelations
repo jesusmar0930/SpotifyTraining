@@ -1,0 +1,19 @@
+# Import necessary libraries
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the dataset
+spotify_data_sample = pd.read_csv('spotify_data_cleaned_sample_200k.csv')
+
+# Select only numeric columns
+numeric_cols = spotify_data_sample.select_dtypes(include=['int64', 'float64'])
+
+# Calculate correlations
+correlations = numeric_cols.corr()
+
+# Create a heatmap
+plt.figure(figsize=(12,8))
+sns.heatmap(correlations, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.1)
+plt.title('Correlation Heatmap', fontsize=16)
+plt.show()

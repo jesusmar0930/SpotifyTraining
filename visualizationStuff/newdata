@@ -1,0 +1,22 @@
+# Import necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+data = pd.read_csv('spotify_data_cleaned.csv')
+
+# Randomly select 200,000 tracks
+data_sample_200k = data.sample(n=200000, random_state=1)
+
+# Save the sample data to a new CSV file
+data_sample_200k.to_csv('spotify_data_cleaned_sample_200k.csv', index=False)
+
+# Plot a histogram of the popularity
+plt.figure(figsize=(10, 6))
+sns.histplot(data=data_sample_200k, x="popularity", bins=30, color='skyblue', kde=True)
+plt.title("Distribution of Popularity for Sampled Data")
+plt.xlabel("Popularity")
+plt.ylabel("Count")
+plt.tight_layout()
+plt.savefig("popularity_distribution_sampled_data.png")

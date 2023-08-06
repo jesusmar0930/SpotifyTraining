@@ -1,0 +1,50 @@
+# Import necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+data = pd.read_csv('spotify_data_cleaned.csv')
+
+# Set the style of the plots
+sns.set_style("whitegrid")
+
+# Plot a histogram of the popularity
+plt.figure(figsize=(10, 6))
+sns.histplot(data=data, x="popularity", bins=30, color='skyblue', kde=True)
+plt.title("Distribution of Popularity")
+plt.xlabel("Popularity")
+plt.ylabel("Count")
+plt.tight_layout()
+plt.savefig("popularity_distribution.png")
+
+# Plot a bar chart of the top 10 genres
+plt.figure(figsize=(10, 6))
+top_genres = data["genre"].value_counts().head(10)
+sns.barplot(x=top_genres.index, y=top_genres.values, palette="viridis")
+plt.title("Top 10 Genres")
+plt.xlabel("Genre")
+plt.ylabel("Count")
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig("top_genres.png")
+
+# Plot a histogram of the tempo
+plt.figure(figsize=(10, 6))
+sns.histplot(data=data, x="tempo", bins=30, color='skyblue', kde=True)
+plt.title("Distribution of Tempo")
+plt.xlabel("Tempo")
+plt.ylabel("Count")
+plt.tight_layout()
+plt.savefig("tempo_distribution.png")
+
+# Plot a histogram of the duration
+plt.figure(figsize=(10, 6))
+sns.histplot(data=data, x="duration_ms", bins=30, color='skyblue', kde=True)
+plt.title("Distribution of Duration")
+plt.xlabel("Duration (ms)")
+plt.ylabel("Count")
+plt.tight_layout()
+plt.savefig("duration_distribution.png")
+
+plt.close('all')

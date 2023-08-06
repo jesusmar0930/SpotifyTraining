@@ -1,0 +1,31 @@
+# Import necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset
+spotify_data_sample = pd.read_csv('spotify_data_cleaned_sample_200k.csv')
+
+# Calculate genre counts
+genre_counts = spotify_data_sample['genre'].value_counts()
+
+# Select top 10 genres
+top_genres = genre_counts[:10]
+
+# Group remaining genres into 'Other'
+other_count = genre_counts[10:].sum()
+top_genres['Other'] = other_count
+
+# Create a pie chart for the distribution of genres
+plt.figure(figsize=(10,10))
+wedges, texts, autotexts = plt.pie(top_genres.values, labels=top_genres.index, autopct='%1.1f%%', startangle=140)
+
+# Make the labels easier to read
+plt.setp(autotexts, size=8, weight="bold", color='white')
+plt.setp(texts, size=10)
+
+# Add a legend
+plt.legend(title='Genres', loc='upper right')
+
+plt.axis('equal')  # Equal aspect ratio ensures the pie chart is circular.
+plt.title('Distribution of Genres', fontsize=16)
+plt.show()

@@ -1,0 +1,22 @@
+# Import necessary libraries
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Define the models and their respective RMSE
+models = ['Linear Regression (Sampled)', 'Decision Tree Regression (Sampled)', 
+          'Tuned Decision Tree Regression (Sampled)', 'Gradient Boosting Regression (Sampled)', 
+          'Tuned Gradient Boosting Regression (Sampled)', 'Tuned Gradient Boosting Regression (Full)']
+rmse = [12.584, 11.849, 10.965, 11.411, 9.289, 9.077]
+
+# Create a DataFrame
+rmse_df = pd.DataFrame({'Model': models, 'RMSE': rmse})
+
+# Plot
+plt.figure(figsize=(8,6))
+sns.barplot(y='Model', x='RMSE', data=rmse_df, palette='viridis')
+plt.title('RMSE of Different Models', fontsize=16)
+plt.xlabel('RMSE', fontsize=14)
+plt.ylabel('Model', fontsize=14)
+plt.grid(axis='x')
+plt.show()

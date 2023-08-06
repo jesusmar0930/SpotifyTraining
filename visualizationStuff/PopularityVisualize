@@ -1,0 +1,46 @@
+# Import necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+spotify_data_sample = pd.read_csv('spotify_data_cleaned_sample_200k.csv')
+
+# Define a function for categorizing popularity
+def categorize_popularity(popularity):
+    if popularity < 50:
+        return 'low'
+    elif 50 <= popularity < 80:
+        return 'medium'
+    else:
+        return 'high'
+
+# Apply the function to the 'popularity' column
+spotify_data_sample['popularity_level'] = spotify_data_sample['popularity'].apply(categorize_popularity)
+
+# Box plots of numeric features by popularity
+for feature in ['acousticness', 'danceability', 'energy']:
+    sns.boxplot(x='popularity_level', y=feature, data=spotify_data_sample)
+    plt.title('Boxplot of ' + feature + ' by popularity level')
+    plt.show()
+
+# Scatter plots of numeric features against popularity
+for feature in ['acousticness', 'danceability', 'energy']:
+    plt.scatter(spotify_data_sample[feature], spotify_data_sample['popularity'])
+    plt.xlabel(feature)
+    plt.ylabel('Popularity')
+    plt.title('Scatter plot of popularity against ' + feature)
+    plt.show()
+
+# Histogram of popularity
+plt.hist(spotify_data_sample['popularity'], bins=30)
+plt.xlabel('Popularity')
+plt.ylabel('Count')
+plt.title('Histogram of popularity')
+plt.show()
+
+# Correlation matrix
+corr = spotify_data_sample.corr()
+sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, annot=True, cmap=sns.diverging_palette(220, 20, as_cmap=True))
+plt.title('Correlation matrix')
+plt.show()
